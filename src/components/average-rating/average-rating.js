@@ -1,6 +1,9 @@
 import React, { useMemo } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
+
+import { reviewsListSelector } from '../../redux/selectors';
 
 function AverageRating({ reviews }) {
   const rawRating = useMemo(
@@ -24,4 +27,8 @@ AverageRating.propTypes = {
   ).isRequired
 };
 
-export default AverageRating;
+const mapStateToProps = state => ({
+  reviews: reviewsListSelector(state)
+});
+
+export default connect(mapStateToProps)(AverageRating);

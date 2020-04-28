@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Product from '../product';
 import { Col, Row, Typography } from 'antd';
 import Basket from '../basket';
 
+import { menuListSelector } from '../../redux/selectors';
+
 class Menu extends Component {
   static propTypes = {
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired
-      }).isRequired
-    ).isRequired
+    menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   };
 
   state = {

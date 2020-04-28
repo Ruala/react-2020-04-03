@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Menu from '../menu';
@@ -8,9 +9,10 @@ import Hero from '../hero';
 import ContentTabs from '../content-tabs';
 
 import styles from './restaurant.module.css';
+
 class Restaurant extends Component {
   render() {
-    const { name, menu, reviews } = this.props.restaurant;
+    const { id, name, menu, reviews } = this.props.restaurant;
 
     const contentItems = [
       {
@@ -19,7 +21,7 @@ class Restaurant extends Component {
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} />
+        tabContent: <Reviews reviews={reviews} restaurantId={id} />
       }
     ];
 
@@ -40,4 +42,8 @@ Restaurant.propTypes = {
   reviews: PropTypes.array
 };
 
-export default Restaurant;
+const mapStateToProps = (state, ownProps) => ({
+  restaurant: state.restaurants[ownProps.id]
+});
+
+export default connect(mapStateToProps)(Restaurant);

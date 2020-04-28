@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import Restaurant from '../restaurant';
 import ContentTabs from '../content-tabs';
 
+import { restaurantsListSelector } from '../../redux/selectors';
+
 function Restaurants({ restaurants }) {
   const items = restaurants.map(restaurant => ({
     tabTitle: restaurant.name,
-    tabContent: <Restaurant restaurant={restaurant} />
+    tabContent: <Restaurant id={restaurant.id} />
   }));
   return <ContentTabs items={items} />;
 }
@@ -16,11 +18,12 @@ function Restaurants({ restaurants }) {
 Restaurants.propTypes = {
   restaurants: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
     }).isRequired
   ).isRequired
 };
 
 export default connect(state => ({
-  restaurants: state.restaurants
+  restaurants: restaurantsListSelector(state)
 }))(Restaurants);
